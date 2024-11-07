@@ -1,0 +1,21 @@
+{
+  "name": "playwrighttypescriptrentzila",
+  "version": "1.0.0",
+  "description": "playwright typescript project",
+  "main": "index.js",
+  "scripts": {},
+  "keywords": [
+    "playwright",
+    "typescript"
+  ],
+  "author": "DenysKulikov",
+  "license": "MIT",
+  "devDependencies": {
+    "@playwright/test": "^1.48.2",
+    "@types/node": "^22.8.2"
+  },
+  "dependencies": {
+    "@faker-js/faker": "^9.2.0",
+    "dotenv": "^16.4.5"
+  }
+}
