@@ -2,84 +2,63 @@ import { BasePage } from './BasePage';
 import { Page, Locator } from '@playwright/test';
 
 export class ProfilePage extends BasePage {
-    readonly phoneNumberField: Locator;
-    readonly tabTitles: Locator;
-    readonly tabNumbers: Locator;
-    readonly categoryTitle: Locator;
-    readonly categorySelectText: Locator;
-    readonly categorySideArrow: Locator;
-    readonly nextButton: Locator;
-    readonly categoryField: Locator;
-    readonly categoryFieldErrorMessage: Locator;
-    readonly categoryPopupTitle: Locator;
-    readonly imageInput: Locator;
-    readonly firstColumnElements: Locator;
-    readonly secondColumnElements: Locator;
-    readonly thirdColumnElements: Locator;
-    readonly unitNameInputField: Locator;
-    readonly vehicleManufacturerSectionInput: Locator;
-    readonly dropdownOptions: Locator;
-    readonly popupAddress: Locator;
-    readonly confirmAdressButton: Locator;
-    readonly vehicleLocationDivisionInput: Locator;
-    readonly selectOnMapButton: Locator;
-    readonly mapPopup: Locator;
-    readonly serviceInput: Locator;
-    readonly servicesToChoose: Locator;
-    readonly createUnitTitle: Locator;
-    readonly servicesParagraphNotExistText: Locator;
-    readonly addNewServicesBtn: Locator;
-    readonly addNewServicesIconPlusIcon: Locator;
-    readonly selectedServices: Locator;
-    readonly searchItemServicesResult: Locator;
-    readonly technicalServiceDescription: Locator;
-    readonly removeServiceBtns: Locator;
-    readonly prevButton: Locator;
-    readonly telegramCrossButton: Locator;
-    readonly nextButon: Locator;
-    readonly servicesInfoClue: Locator;
-    readonly searchedServicesWrapper: Locator;
-    readonly servicesInputTitle: Locator;
+    readonly fields: Record<string, Locator>;
+    readonly buttons: Record<string, Locator>;
+    readonly elements: Record<string, Locator>;
 
     constructor(page: Page) {
         super(page);
-        this.phoneNumberField = page.locator('[data-testid="input_OwnerProfileNumber"]');
-        this.tabTitles = page.locator('[class*="CustomLabel_labelTitle"]');
-        this.tabNumbers = page.locator('[data-testid="labelNumber"]');
-        this.categoryTitle = page.locator('[class*="CategorySelect_title"]');
-        this.categorySelectText = page.locator('[class*="CategorySelect_content"]');
-        this.categorySideArrow = page.locator('[class*="CategorySelect_wrapper"] [alt="Arrow-down"]');
-        this.nextButton = page.locator('[data-testid="nextButton"]');
-        this.categoryField = page.locator('[data-testid="buttonDiv"]');
-        this.categoryFieldErrorMessage = page.locator('[class*="tegorySelect_errorTextVisible"]');
-        this.categoryPopupTitle = page.locator('[class*="CategoryPopup_title"]');
-        this.imageInput = page.locator('[data-testid="input_ImagesUnitFlow"]');
-        this.firstColumnElements = page.locator('[class*=FirstCategoryList_content]');
-        this.secondColumnElements = page.locator('[class*="SecondCategory_radio_flex"]');
-        this.thirdColumnElements = page.locator('[class*="ThirdCategory_wrapper"]');
-        this.unitNameInputField = page.locator('[data-testid="custom-input"]').nth(0);
-        this.vehicleManufacturerSectionInput = page.locator('[data-testid="input-customSelectWithSearch"]');
-        this.dropdownOptions = page.locator('[data-testid="item-customSelectWithSearch"]');
-        this.popupAddress = page.locator('[data-testid="address"]');
-        this.confirmAdressButton = page.locator('[class*="MapPopup_body"] [class*="ItemButtons_wrapper"]').nth(1);
-        this.vehicleLocationDivisionInput = page.locator('[data-testid="mapLabel"]');
-        this.selectOnMapButton = page.locator('button[class*="AddressSelectionBlock_locationBtn"]');
-        this.mapPopup = page.locator('[data-testid="div-mapPopup"]');
-        this.serviceInput = page.locator('input[placeholder*="Наприклад"]');
-        this.servicesToChoose = page.locator('[data-testid="searchItem-servicesUnitFlow"]');
-        this.createUnitTitle = page.locator('[class*="CreateEditFlowLayout_title"]');
-        this.servicesParagraphNotExistText = page.locator('[class*="AddNewItem_paragraph"]');
-        this.addNewServicesBtn = page.locator('[data-testid="btn-addNewItem"]');
-        this.addNewServicesIconPlusIcon = page.locator('[data-testid="svg-plus-addNewItem"]');
-        this.selectedServices = page.locator('[class*="ServicesUnitFlow_servicesWrapper"] [data-testid="item-servicesUnitFlow"]');
-        this.searchItemServicesResult = page.locator('[class*="ServicesUnitFlow_flexForServices"]');
-        this.technicalServiceDescription = page.locator('//div[contains(text(), "Послуги, які надає технічний засіб:")]');
-        this.removeServiceBtns = page.locator('[data-testid="remove-servicesUnitFlow"]');
-        this.prevButton = page.locator('[data-testid="prevButton"]');
-        this.telegramCrossButton = page.locator('[data-testid="completeTenderRectangle"] [data-testid="crossIcon"]');
-        this.nextButon = page.locator('[data-testid="nextButton"]');
-        this.servicesInfoClue = page.locator('[data-testid="add-info"]');
-        this.searchedServicesWrapper = page.locator('[class*="ServicesUnitFlow_searchedServicesCatWrapper"]');
-        this.servicesInputTitle = page.locator('[class*="ServicesUnitFlow_paragraph"]');
+
+        this.fields = {
+            phoneNumber: page.locator('[data-testid="input_OwnerProfileNumber"]'),
+            categoryField: page.locator('[data-testid="buttonDiv"]'),
+            categoryFieldErrorMessage: page.locator('[class*="tegorySelect_errorTextVisible"]'),
+            imageInput: page.locator('[data-testid="input_ImagesUnitFlow"]'),
+            unitNameInputField: page.locator('[data-testid="custom-input"]').nth(0),
+            vehicleManufacturerSectionInput: page.locator('[data-testid="input-customSelectWithSearch"]'),
+            vehicleLocationDivisionInput: page.locator('[data-testid="mapLabel"]'),
+            serviceInput: page.locator('input[placeholder*="Наприклад"]'),
+        };
+    
+        this.buttons = {
+            addNewServices: page.locator('[data-testid="btn-addNewItem"]'),
+            nextButton: page.locator('[data-testid="nextButton"]'),
+            confirmAdressButton: page.locator('[class*="MapPopup_body"] [class*="ItemButtons_wrapper"]').nth(1),
+            selectOnMapButton: page.locator('button[class*="AddressSelectionBlock_locationBtn"]'),
+            addNewServicesBtn: page.locator('[data-testid="btn-addNewItem"]'),
+            removeServiceBtns: page.locator('[data-testid="remove-servicesUnitFlow"]'),
+            prevButton: page.locator('[data-testid="prevButton"]'),
+            showMoreCardsButton: page.locator('[data-testid="unitCard"]'),
+        };
+    
+        this.elements = {
+            tabTitles: page.locator('[class*="CustomLabel_labelTitle"]'),
+            tabNumbers: page.locator('[data-testid="labelNumber"]'),
+            categoryTitle: page.locator('[class*="CategorySelect_title"]'),
+            categorySelectText: page.locator('[class*="CategorySelect_content"]'),
+            categorySideArrow: page.locator('[class*="CategorySelect_wrapper"] [alt="Arrow-down"]'),
+            categoryPopupTitle: page.locator('[class*="CategoryPopup_title"]'),
+            firstColumnElements: page.locator('[class*=FirstCategoryList_content]'),
+            secondColumnElements: page.locator('[class*="SecondCategory_radio_flex"]'),
+            thirdColumnElements: page.locator('[class*="ThirdCategory_wrapper"]'),
+            dropdownOptions: page.locator('[data-testid="item-customSelectWithSearch"]'),
+            popupAddress: page.locator('[data-testid="address"]'),
+            mapPopup: page.locator('[data-testid="div-mapPopup"]'),
+            servicesToChoose: page.locator('[data-testid="searchItem-servicesUnitFlow"]'),
+            createUnitTitle: page.locator('[class*="CreateEditFlowLayout_title"]'),
+            servicesParagraphNotExistText: page.locator('[class*="AddNewItem_paragraph"]'),
+            addNewServicesIconPlusIcon: page.locator('[data-testid="svg-plus-addNewItem"]'),
+            selectedServices: page.locator('[class*="ServicesUnitFlow_servicesWrapper"] [data-testid="item-servicesUnitFlow"]'),
+            searchItemServicesResult: page.locator('[class*="ServicesUnitFlow_flexForServices"]'),
+            technicalServiceDescription: page.locator('//div[contains(text(), "Послуги, які надає технічний засіб:")]'),
+            servicesInfoClue: page.locator('[data-testid="add-info"]'),
+            searchedServicesWrapper: page.locator('[class*="ServicesUnitFlow_searchedServicesCatWrapper"]'),
+            servicesInputTitle: page.locator('[class*="ServicesUnitFlow_paragraph"]'),
+            categoriesToChoose: page.locator('[data-testid="leftsideCategory"]'),
+            categoryVariants: page.locator('[data-testid="variant"]'),
+            unitCards: page.locator('[data-testid="unitCard"]'),
+            emptyBlockTitle: page.locator('[data-testid="title"]'),
+            pendingUnits: page.locator('.MuiButtonBase-root'),
+        };
     }
 }

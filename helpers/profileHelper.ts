@@ -20,7 +20,7 @@ export async function createUnitFillingInSectionsWithEightPhotos(page: Page) {
 
     await createUnitFillingInFirstSection(page);
 
-    const input = profilePage.imageInput;
+    const input = profilePage.fields.imageInput;
 
     await makeInputForImagesVisible(page);
 
@@ -40,7 +40,7 @@ export async function createUnitFillingInSectionsWithTwoPhotos(page: Page) {
 
     await createUnitFillingInFirstSection(page);
 
-    const input = profilePage.imageInput;
+    const input = profilePage.fields.imageInput;
 
     await makeInputForImagesVisible(page);
 
@@ -56,7 +56,7 @@ export async function createUnitFillingInFirstSection(page: Page) {
     const homePage = new HomePage(page);
 
     await page.goto(endpoints.createUnitPage.url);
-    if (!(await profilePage.createUnitTitle.isVisible())) {
+    if (!(await profilePage.elements.createUnitTitle.isVisible())) {
         await homePage.emailField.waitFor({ state: 'visible', timeout: 5000 });
         await homePage.passwordField.waitFor({ state: 'visible', timeout: 5000 });
 
@@ -66,33 +66,33 @@ export async function createUnitFillingInFirstSection(page: Page) {
         await homePage.submitButton.click();
     }
 
-    await profilePage.categoryField.click();
-    await profilePage.firstColumnElements.nth(0).click();
-    await profilePage.secondColumnElements.nth(0).click();
-    await profilePage.thirdColumnElements.nth(0).click();
+    await profilePage.fields.categoryField.click();
+    await profilePage.elements.firstColumnElements.nth(0).click();
+    await profilePage.elements.secondColumnElements.nth(0).click();
+    await profilePage.elements.thirdColumnElements.nth(0).click();
 
-    await profilePage.unitNameInputField.fill(faker.string.alpha(10));
+    await profilePage.fields.unitNameInputField.fill(faker.string.alpha(10));
 
-    await profilePage.vehicleManufacturerSectionInput.fill(validValues.vehicleManufacturerSectionInputValue);
-    await profilePage.dropdownOptions.nth(0).click();
+    await profilePage.fields.vehicleManufacturerSectionInput.fill(validValues.vehicleManufacturerSectionInputValue);
+    await profilePage.elements.dropdownOptions.nth(0).click();
 
     await selectLocationOnMap(page);
-    const expectedText = await profilePage.popupAddress.textContent();
+    const expectedText = await profilePage.elements.popupAddress.textContent();
 
-    await profilePage.confirmAdressButton.click();
+    await profilePage.buttons.confirmAdressButton.click();
 
-    expect(await profilePage.vehicleLocationDivisionInput.textContent()).toEqual(expectedText);
+    expect(await profilePage.fields.vehicleLocationDivisionInput.textContent()).toEqual(expectedText);
 
-    await profilePage.nextButton.click();
+    await profilePage.buttons.nextButton.click();
 }
 
 export async function selectLocationOnMap(page: Page) {
     const profilePage = new ProfilePage(page);
 
-    await profilePage.selectOnMapButton.click();
-    await expect(profilePage.popupAddress).toHaveText(validValues.popupAddress);
+    await profilePage.buttons.selectOnMapButton.click();
+    await expect(profilePage.elements.popupAddress).toHaveText(validValues.popupAddress);
 
-    const boundingBox = await profilePage.mapPopup.boundingBox();
+    const boundingBox = await profilePage.elements.mapPopup.boundingBox();
     if (boundingBox) {
         const { x, y, width, height } = boundingBox;
         const centerX = Math.floor(x + width / 2);

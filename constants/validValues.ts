@@ -52,4 +52,6 @@ export const validValues = {
     servicesInputPlaceholder: "Наприклад: Рихлення грунту, буріння",
     excavationForFoundations: "Риття котлованів під фундаменти",
     servicesProvidedByTechnicalMeans: "Послуги, які надає технічний засіб:",
+    servicesInputTitle: /^Знайдіть послуги, які надає Ваш технічний засіб.*\*$/,
+    addNewServicesBtnText: /Створити послугу/,
 };
